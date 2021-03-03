@@ -1,0 +1,17 @@
+.Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.Button button{
+    background-color: #dadada;
+    border: 1px solid lightblue;
+    border-radius: 3px;
+    padding: 5px 20px;
+}
+.Button button:hover{
+    background-color: rgb(173, 216, 230);
+    box-shadow: 1px 0 9px rgba(100, 165, 187, 0.2);
+}

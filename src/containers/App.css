@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+}
+.App-header, .App-footer {
+  background-color: #282c34;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-header{
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.App-footer{
+  flex-direction: column;
+  height: 40px;
+  font-size: calc(10px + 1.3vmin);
+}
+.App-footer .row{
+  max-width: 1200px;
+  width: 100%;
+}
+.App-header .column{
+  height: inherit;
+  align-items: center;
+    display: flex;
+}
+.App{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.App-header .logo{
+ height: inherit;
+}
+.App-footer a{
+  color: #f6f6f6;
+  text-decoration: none;
+}
+.App-footer a:hover{
+  color: lightblue
+}
+

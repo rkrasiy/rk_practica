@@ -1,0 +1,20 @@
+.Input {
+    padding: .5em 0 0;
+    margin-bottom: .5em;
+}
+.Input input {
+    padding: 5px 10px;
+    border: 1px solid lightblue;
+    border-radius: 5px;
+    outline: none;
+}
+
+.Input input:focus{
+    background-color: #f6f6f6;
+}
+.Input > label{
+    margin-bottom: .5em;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
