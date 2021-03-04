@@ -1,0 +1,34 @@
+.Menu {
+  border-right: 1px solid #dadada;
+  padding: .5em 0 .5em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+.Menu > .item {
+  padding: 0.5em;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+  position: relative;
+}
+.Menu .active.item{
+  border: 1px solid #dadada;
+  border-right: 1px solid white;
+  border-radius: 3px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+.Menu .active.item:after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  right: -2px;
+  width: 3px;
+  background: #ffffff;
+  display: block;
+  z-index: 22;
+  border-bottom: 1px solid #dadada;
+  border-top: 1px solid #dadada;
+}

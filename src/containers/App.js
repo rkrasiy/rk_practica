@@ -1,33 +1,30 @@
 import React, {Component} from 'react';
 import './App.css';
-import Footer from "./Footer";
-import logo from "../assets/images/logo.svg";
-import AdminPanel from "../components/AdminPanel/AdminPanel";
-import FormValidation from "../components/Forms/FormValidation/FormValidation"
+import Footer from "../components/Footer/Footer";
+import Dashboard from "../components/Dashboard/Dashboard";
+import FormValidation from "../components/Forms/FormValidation/FormValidation";
+import Header from "../components/Header/Header";
+
 class App extends Component {
   state = {
     isLogged: false
   }
+
  render(){
   let section = null 
-  if(this.state.isLogged)
-    section = <AdminPanel></AdminPanel>
+  if(!this.state.isLogged)
+    section = <section><Dashboard /></section>
   else
-    section = <FormValidation></FormValidation>
+    section = <section><FormValidation /></section>
+
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="column">
-            <img src={logo} className="logo"/>
-            <div className="column">Adminer</div>
-        </div>
-        
-        <nav className="App-navbar"><div><button>Entrar</button></div></nav>
-      </header>
-      <section>{section}</section>
-      <Footer>Designed by 
-        <a href="https://www.linkedin.com/in/ruslan-krasiy-b7566016a/" 
-        target="_blank"> @Ruslan Krasiy</a>
+      <Header />
+      {section}
+      <Footer 
+        link="https://www.linkedin.com/in/ruslan-krasiy-b7566016a/"
+        linktitle="LinkedIn/ruslan-krasiy">
+          @Ruslan Krasiy
         </Footer>
     </div>
   )
