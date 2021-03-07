@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Footer from "../components/Footer/Footer";
-import Dashboard from "../components/Dashboard/Dashboard";
-import FormValidation from "../components/Forms/FormValidation/FormValidation";
+import Content from "../components/Content/Content";
+import FormAuth from "../components/FormAuth/FormAuth";
 import Header from "../components/Header/Header";
 
 class App extends Component {
@@ -12,10 +12,10 @@ class App extends Component {
 
  render(){
   let section = null 
-  if(!this.state.isLogged)
-    section = <section><Dashboard /></section>
+  if(this.state.isLogged)
+    section = <section><Content /></section>
   else
-    section = <section><FormValidation /></section>
+    section = <section><FormAuth isLogged={this.state.isLogged}/></section>
 
   return (
     <div className="App">

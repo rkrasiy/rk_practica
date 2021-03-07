@@ -1,21 +1,25 @@
 import React, {Component} from 'react';
-import Input from "../../Input/Input";
-import Button from "../../Button/Button";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
 
-import "./FormValidation.css"
-class FormValidation extends Component{
-
-    submitHandler = () =>{
+import "./FormAuth.css"
+class FormAuth extends Component{
+    
+    submitHandler = (event) =>{
+        event.preventDefault()
         console.log("press")
+        this.props.isLogged = true
+        console.log(this.props)
     }
+
     inputHandler = (event) => {
         console.log(event.target.value)
     }
 
     render(){
         return (
-            <div className="Form-Validation">
-                <form onSubmit={this.submitHandler}>
+            <div className="Form-Auth">
+                <form onSubmit={(event) => this.submitHandler(event)}>
                     <Input 
                         changed={this.inputHandler} 
                         elementtype="email" 
@@ -32,4 +36,4 @@ class FormValidation extends Component{
     }
 }
 
-export default FormValidation
+export default FormAuth

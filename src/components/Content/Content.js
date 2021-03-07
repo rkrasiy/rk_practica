@@ -1,51 +1,58 @@
 import React, { Component } from "react";
-import Menu from "./Menu/Menu";
+import Menu from "../Menu/Menu";
 import ClientsList from "../ClientsList/ClientsList";
 import ProductsList from "../ProductsList/ProductsList";
-import "./Dashboard.css";
+import "./Content.css";
 
-class Dashboard extends Component {
+class Content extends Component {
   state = {
     menu: [
       {
         id: "itm-1",
         titleElement: "Clientes",
-        active: "active"
+        active: true
       },
       {
         id: "itm-2",
         titleElement: "Productos",
-        active: ""
-      },
+        active: false
+      }
     ],
   };
+
  clickMenuItemHandler = (id) => {
     let menu = [...this.state.menu]
     let newMenu = [...menu.map( el => {
       if(el.id === id){
-        el.active = "active"
+        el.active = true
       }else{
-        el.active = ""
+        el.active = false
       }
       return el
     })]
 
     this.setState({menu: newMenu})
  }
+ 
   render() {
+    let contentList = "";
+
+    if(this.state.menu[0].active)
+      contentList = <ClientsList />
+    if(this.state.menu[1].active)
+      contentList = <ProductsList />
     return (
-      <div className="Dashboard">
+      <div className="Content">
         <Menu 
           child={this.state.menu} 
           clicked={this.clickMenuItemHandler}
         />
         <div className="content">
-          <ClientsList></ClientsList>
-          <ProductsList></ProductsList>
+          {contentList}
         </div>
       </div>
     );
   }
 }
 
-export default Dashboard;
+export default Content;

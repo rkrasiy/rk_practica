@@ -1,0 +1,10 @@
+.Content {
+  height: inherit;
+  display: flex;
+  padding: 1em;
+  box-sizing: inherit;
+}
+.Content .content{
+  width: 100%;
+  padding: 1em;
+}

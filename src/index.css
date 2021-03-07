@@ -6,7 +6,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+@font-face{
+  font-family: OpenSansRegular;
+  src: url(../src/assets/fonts/OpenSans-Regular.ttf)
+}
+@font-face{
+  font-family: OpenSansLight;
+  src: url(../src/assets/fonts/OpenSans-Light.ttf)
+}
+@font-face{
+  font-family: OpenSansSemiBold;
+  src: url(../src/assets/fonts/OpenSans-SemiBold.ttf)
+}
+@font-face{
+  font-family: OpenSansBold;
+  src: url(../src/assets/fonts/OpenSans-Bold.ttf)
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
