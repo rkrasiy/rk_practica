@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import Footer from "../components/Footer/Footer";
-import Content from "../components/Content/Content";
-import FormAuth from "../components/FormAuth/FormAuth";
+import Content from "./Content/Content";
+import FormAuth from "./FormAuth/FormAuth";
 import Header from "../components/Header/Header";
+
 
 class App extends Component {
   state = {
@@ -12,7 +13,7 @@ class App extends Component {
 
  render(){
   let section = null 
-  if(this.state.isLogged)
+  if( this.state.isLogged)
     section = <section><Content /></section>
   else
     section = <section><FormAuth isLogged={this.state.isLogged}/></section>

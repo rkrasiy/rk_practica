@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Menu from "../Menu/Menu";
-import ClientsList from "../ClientsList/ClientsList";
-import ProductsList from "../ProductsList/ProductsList";
+import Menu from "../../components/Menu/Menu";
+import ClientsList from "../../components/ClientsList/ClientsList";
+import ProductsList from "../../components/ProductsList/ProductsList";
 import "./Content.css";
 
 class Content extends Component {

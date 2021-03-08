@@ -7,8 +7,12 @@
     border: 1px solid lightblue;
     border-radius: 5px;
     outline: none;
+    font-family: inherit;
 }
-
+input.invalid{
+    border: 1px solid red;
+    background-color: #fda49a;
+}
 .Input input:focus{
     background-color: #f6f6f6;
 }
@@ -17,4 +21,8 @@
     display: block;
     width: 100%;
     text-align: left;
+}
+.errorMessage {
+    color: red;
+    margin: 5px 0;
 }
