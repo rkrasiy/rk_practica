@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
+
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 
@@ -134,4 +134,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(FormAuth)
+export default FormAuth
