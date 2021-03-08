@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import './App.css';
 import Footer from "../components/Footer/Footer";
 import Content from "./Content/Content";
-import FormAuth from "./FormAuth/FormAuth";
+import Auth from "./Auth/Auth";
 import Header from "../components/Header/Header";
 
 
 class App extends Component {
   state = {
-    isLogged: false
+    isLogged: true
   }
 
  render(){
@@ -16,7 +16,7 @@ class App extends Component {
   if( this.state.isLogged)
     section = <section><Content /></section>
   else
-    section = <section><FormAuth isLogged={this.state.isLogged}/></section>
+    section = <section><Auth isLogged={this.state.isLogged}/></section>
 
   return (
     <div className="App">

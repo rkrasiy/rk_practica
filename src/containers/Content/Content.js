@@ -18,7 +18,27 @@ class Content extends Component {
         active: false
       }
     ],
+    clientes: null,
+    productos: null
   };
+
+ componentDidMount = () => {
+   fetch("http://localhost:3001/clients")
+    .then(response => {
+      return response.json()
+    }).then( (data)=> {
+        console.log(data)
+        this.setState({clientes: data})
+      })
+
+    fetch("http://localhost:3001/products")
+      .then(response => {
+        return response.json()
+      }).then( (data)=> {
+          console.log(data)
+          this.setState({productos: data})
+        })    
+ }
 
  clickMenuItemHandler = (id) => {
     let menu = [...this.state.menu]
@@ -38,9 +58,9 @@ class Content extends Component {
     let contentList = "";
 
     if(this.state.menu[0].active)
-      contentList = <ClientsList />
+      contentList = <ClientsList json={this.state.clientes} />
     if(this.state.menu[1].active)
-      contentList = <ProductsList />
+      contentList = <ProductsList json={this.state.productos}/>
     return (
       <div className="Content">
         <Menu 

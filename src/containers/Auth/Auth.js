@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 
-import "./FormAuth.css"
+import "./Auth.css"
 import * as actions from "../../store/actions/index"
 class FormAuth extends Component{
     state = {

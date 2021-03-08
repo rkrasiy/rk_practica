@@ -4,7 +4,7 @@ const Client = (props) => {
   
   return (
       <div className="Client">
-        {props.children}
+        <p>{props.name} {props.email}</p>
       </div>
     );
 };
