@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Menu from "../../components/Menu/Menu";
-import ClientsList from "../../components/ClientsList/ClientsList";
-import ProductsList from "../../components/ProductsList/ProductsList";
+import Clients from "../Clients/Clients";
+import Products from "../Products/Products"
 import "./Content.css";
 
 class Content extends Component {
@@ -17,28 +17,8 @@ class Content extends Component {
         titleElement: "Productos",
         active: false
       }
-    ],
-    clientes: null,
-    productos: null
+    ]
   };
-
- componentDidMount = () => {
-   fetch("http://localhost:3001/clients")
-    .then(response => {
-      return response.json()
-    }).then( (data)=> {
-        console.log(data)
-        this.setState({clientes: data})
-      })
-
-    fetch("http://localhost:3001/products")
-      .then(response => {
-        return response.json()
-      }).then( (data)=> {
-          console.log(data)
-          this.setState({productos: data})
-        })    
- }
 
  clickMenuItemHandler = (id) => {
     let menu = [...this.state.menu]
@@ -58,9 +38,9 @@ class Content extends Component {
     let contentList = "";
 
     if(this.state.menu[0].active)
-      contentList = <ClientsList json={this.state.clientes} />
+      contentList = <Clients />
     if(this.state.menu[1].active)
-      contentList = <ProductsList json={this.state.productos}/>
+      contentList = <Products />
     return (
       <div className="Content">
         <Menu 

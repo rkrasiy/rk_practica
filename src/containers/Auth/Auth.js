@@ -119,9 +119,11 @@ class FormAuth extends Component{
         ))
         return (
             <div className="Form-Auth">
+                
                 <form onSubmit={(event) => this.submitHandler(event)}>
+                <h4>¡Bienvenido!</h4>
                   {form}  
-                <Button btnType="Success">Submit</Button>
+                <Button btnType="Success" classes="blue fullwidth">Submit</Button>
                 </form>
             </div>
         )
