@@ -3,8 +3,17 @@
   display: flex;
   padding: 1em;
   box-sizing: inherit;
+  background-color: #fff;
 }
-.Content .content{
+.Content section{
   width: 100%;
   padding: 1em;
+}
+
+.Content section > div {
+  display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-content: space-between;
+    height: 100%;
 }

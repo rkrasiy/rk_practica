@@ -1,11 +1,11 @@
-.Form-Auth {
+.Auth {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
 
-.Form-Auth form{
+.Auth form{
   display: flex;
   font-size: 2em;
   flex-direction: column;
@@ -14,7 +14,7 @@
   border-radius: .3rem;
   box-shadow: 1px 0 9px rgba(112,112,112, .2);
 }
-.Form-Auth .divider::after{
+.Auth .divider:after{
   content: "";
   display: block;
   width: 100%;

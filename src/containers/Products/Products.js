@@ -38,7 +38,7 @@ class Products extends Component {
     let productos = "";
     let itemsCount = 0
     if(this.state.productos){
-      itemsCount = this.state.productos.length;
+      itemsCount = "Total: " + this.state.productos.length + " articulos";
       productos = this.state.productos.map( (product, index) => (
         <Product 
           number={index + 1}
@@ -59,11 +59,11 @@ class Products extends Component {
             classes="green right" 
             clicked={this.addNewProductHandler}>Nuevo Articulo</Button>
         </div>
-        <div className="list-items">
+        <div className="list-items top">
           {productos}
         </div>
-        <div>
-          Productos: {itemsCount} (und)
+        <div className="count-elements" style={{textAlign: "right"}}>
+          {itemsCount}
         </div>
       </div>
     )

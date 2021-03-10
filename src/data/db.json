@@ -1,39 +1,51 @@
 {
   "clients": [
-    { "id": 1, 
-      "name": "Ruslan", 
+    {
+      "id": 1,
+      "name": "Ruslan",
       "last_name": "Krasiy",
-      "email":"krasiyruslan@gmail.com"
+      "email": "krasiyruslan@gmail.com"
     },
-    { "id": 2, 
-      "name": "Josh", 
+    {
+      "id": 2,
+      "name": "Josh",
       "last_name": "Doe",
-      "email":"joshdoe@gmail.com"
+      "email": "joshdoe@gmail.com"
     },
-    { "id": 3, 
-      "name": "Mark", 
-      "last_name": "Hunter",
-      "email":"markhunter@gmail.com"
+    {
+      "name": "Lesia",
+      "last_name": "Romanchuk",
+      "email": "romanchyklesia@gmail.com",
+      "id": 11
+    },
+    {
+      "name": "Diana Sophia",
+      "last_name": "Romanchuk Krasiy",
+      "email": "dianasophia@gmail.com",
+      "id": 12
     }
   ],
   "products": [
-    { "id": 1, 
+    {
+      "id": 1,
       "title": "phone",
       "companyName": "samsung",
       "price": "350",
       "offer": true,
       "offer_prop": 20
     },
-    { "id": 2, 
+    {
+      "id": 2,
       "title": "Printer",
-      "companyName": "HP", 
-      "price":"70",
+      "companyName": "HP",
+      "price": "70",
       "offer": false,
       "offer_prop": 0
     },
-    { "id": 3, 
+    {
+      "id": 3,
       "title": "Computer",
-      "companyName": "Dell" ,
+      "companyName": "Dell",
       "price": "1200",
       "offer": false,
       "offer_prop": 0

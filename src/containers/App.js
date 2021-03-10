@@ -12,34 +12,40 @@ class App extends Component {
   };
 
   render() {
-    /*let section = null;
+    /*let main = null;
     if (this.state.isLogged)
-      section = (
-        <section>
+      main = (
+        <main>
           <Content />
-        </section>
+        </main>
       );
     else
-      section = (
-        <section>
+      main = (
+        <main>
           <Auth isLogged={this.state.isLogged} />
-        </section>
+        </main>
       );
 */
     return (
       <Router>
         <div className="App">
           <Header />
-          <section>
+          <main>
             <Switch>
               <Route path="/login">
                   <Auth isLogged={this.state.isLogged} />
               </Route>
-              <Route path="/dashboard">
+              <Route exact path="/dashboard">
                   <Content />
               </Route>
+              <Route exact path="/dashboard/Edit">
+                  <div> Editar</div>
+              </Route>
+              <Route exact path="/dashboard/New">
+                  <div> New</div>
+              </Route>
             </Switch>
-          </section>
+          </main>
           <Footer
             link="https://www.linkedin.com/in/ruslan-krasiy-b7566016a/"
             linktitle="LinkedIn/ruslan-krasiy"

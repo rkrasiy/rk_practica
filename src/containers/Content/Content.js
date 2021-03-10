@@ -43,13 +43,15 @@ class Content extends Component {
       contentList = <Products />
     return (
       <div className="Content">
-        <Menu 
-          child={this.state.menu} 
-          clicked={this.clickMenuItemHandler}
-        />
-        <div className="content">
+        <aside>
+          <Menu 
+            child={this.state.menu} 
+            clicked={this.clickMenuItemHandler}
+          />
+        </aside>
+        <section>
           {contentList}
-        </div>
+        </section>
       </div>
     );
   }
