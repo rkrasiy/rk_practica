@@ -50,9 +50,29 @@ class Clients extends Component {
         valid: false,
         touched: false,
       },
+      phone_number: {
+        elementType: "input",
+        elementConfig: {
+          type: "number",
+          placeholder: "Enter your phone number",
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 9,
+          maxLength: 9,
+          isNumber: true
+        },
+        valid: false,
+        touched: false,
+      },
     },
     formIsValid: false,
+    formTitle: "Nuevo Cliente",
+    formBtn: "Crear Nuevo Cliente",
+    personId: null
   };
+
   componentDidMount = () => {
     fetch("http://localhost:3030/clients")
       .then((response) => {
@@ -66,9 +86,36 @@ class Clients extends Component {
       });
   };
 
-  openModalHandler = () => {
+  openModalHandler = (event, id) => {
+    let formData = {...this.state.controls}
+    let title = "Nuevo Cliente"
+    let btn = "Crear Nuevo Cliente"
+    if(!!id){
+      let persons = [ ...this.state.clientes];
+      let personIndex = persons.findIndex((person) => person.id === id);
+      let person = {...persons[personIndex]};
+
+      for(let key in person){
+         if(!!formData[key]){
+          formData[key].value = person[key]
+        }
+      }
+      title = "Editar: " + person.name
+      btn = "Editar"
+    }else{
+      for(let key in formData){
+        formData[key].value = ""
+      }
+    }
+    
     let openModal = this.state.openModal;
-    this.setState({ openModal: !openModal });
+    this.setState({ 
+      openModal: !openModal, 
+      controls: formData,
+      formBtn: btn,
+      formTitle: title,
+      personId: id
+    });
   };
 
   closeModalHandler = () => {
@@ -90,29 +137,55 @@ class Clients extends Component {
         const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         isValid = pattern.test(value) && isValid
     }
-
-    return isValid
-}
-  addNewClientHandler = (event) => {
-    event.preventDefault();
-    let formData = []
-    for(let formElement in this.state.controls){
-        formData[formElement] = this.state.controls[formElement]
+    if(rules.isNumber){
+      isValid = !isNaN(rules.isNumber)  && isValid
     }
 
+    return isValid
+  }
+
+  addNewClientHandler = (event, id) => {
+    event.preventDefault();
+    let formData = [];
+    let url = "http://localhost:3030/clients";
+    let method = "POST";
+    let formIsValid = true;
+    const controls = {...this.state.controls}
+    if(!!id){
+      url += "/" + id
+      method = "PUT"
+    }
+    
+    for(let formElement in controls){
+      if(controls[formElement].validation.required && formIsValid){
+        formIsValid = this.checkValidaty(controls[formElement].value, controls[formElement].validation)
+        if(formIsValid)
+          formData[formElement] = controls[formElement] 
+      }else{
+        formIsValid = false
+        controls[formElement].touched = true
+      }
+      
+    }
+    if(!formIsValid){
+      return this.setState({formIsValid: formIsValid, controls: controls})
+    }
+    
     const order = {
         userData: formData
     }
+    
     let persons = [...this.state.clientes];
 
     let newPerson = {
       name: order.userData.name.value,
       last_name:  order.userData.last_name.value,
       email:  order.userData.email.value,
+      phone_number: order.userData.phone_number.value
     };
 
-    fetch("http://localhost:3030/clients", {
-      method: "POST",
+    fetch(url, {
+      method: method,
       headers: {
         "Content-type": "application/json; charset=UTF-8", // Indicates the content
       },
@@ -120,14 +193,15 @@ class Clients extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        persons.push(data);
+        let index = persons.findIndex( person => person.id === data.id)
+        if(index !== -1){
+          persons[index] = data
+        }else{
+          persons.push(data);
+        }
         this.setState({ clientes: persons,openModal: false });
       })
       .catch((err) => console.log(err));
-  };
-
-  editClientHandler = (id) => {
-    console.log("edit", id);
   };
 
   removeClientHadler = (id) => {
@@ -144,8 +218,10 @@ class Clients extends Component {
           this.setState({ clientes: persons });
         }
       })
+    
       .catch((err) => console.log(err));
   };
+  
   inputChangedHandler = (event, controlName) => {
     const updateControls = {
         ...this.state.controls,
@@ -157,11 +233,12 @@ class Clients extends Component {
         }
     }
     this.setState({controls: updateControls})
-}
+  }
   render() {
     let persons = "";
     let itemsCount = 0;
     let modal = "";
+    let personId = this.state.personId
     if (this.state.clientes) {
       itemsCount = "Total: " + this.state.clientes.length + " clientes";
       persons = this.state.clientes.map((person, index) => (
@@ -169,8 +246,10 @@ class Clients extends Component {
           number={index + 1}
           key={person.id}
           name={person.name}
+          last_name={person.last_name}
           email={person.email}
-          clickedEdit={this.editClientHandler.bind(this, person.id)}
+          phone={person.phone_number}
+          clickedEdit={(event) =>this.openModalHandler(event, person.id)}
           clickedRemove={this.removeClientHadler.bind(this, person.id)}
         />
       ));
@@ -197,14 +276,14 @@ class Clients extends Component {
           changed={(event) => this.inputChangedHandler(event, formElement.id)}
         />
       ));
-
+      const formError = this.state.errorMessage
       modal = (
         <div className="modal">
-          <form onSubmit={(event) => this.addNewClientHandler(event)}>
-            <h4 className="title">Nuevo Cliente</h4>
+          <form onSubmit={(event) => this.addNewClientHandler(event, personId)}>
+            <h4 className="title">{this.state.formTitle}</h4>
             {form}
             <Button btnType="Success" classes="green fullwidth">
-              Crear Nuevo Cliente
+              {this.state.formBtn}
             </Button>
             <Button btnType="Dismiss" classes="red fullwidth" clicked={this.closeModalHandler}>
               Cancelar
@@ -217,7 +296,7 @@ class Clients extends Component {
     return (
       <div className="Clients">
         <div className="row right">
-          <Button classes="green" clicked={this.openModalHandler}>
+          <Button classes="green" clicked={(event) =>this.openModalHandler(event)}>
             Nuevo Cliente
           </Button>
         </div>

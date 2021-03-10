@@ -1,28 +1,32 @@
 {
   "clients": [
     {
-      "id": 1,
       "name": "Ruslan",
-      "last_name": "Krasiy",
-      "email": "krasiyruslan@gmail.com"
-    },
-    {
-      "id": 2,
-      "name": "Josh",
-      "last_name": "Doe",
-      "email": "joshdoe@gmail.com"
+      "last_name": "Kraisy",
+      "email": "krasiyruslan@gmail.com",
+      "phone_number": "675668859",
+      "id": 1
     },
     {
       "name": "Lesia",
       "last_name": "Romanchuk",
       "email": "romanchyklesia@gmail.com",
-      "id": 11
+      "phone_number": "654900482",
+      "id": 2
     },
     {
       "name": "Diana Sophia",
       "last_name": "Romanchuk Krasiy",
       "email": "dianasophia@gmail.com",
-      "id": 12
+      "phone_number": "723761612",
+      "id": 3
+    },
+    {
+      "name": "Asda",
+      "last_name": "Kiasda",
+      "email": "romanchyklesia@gmail.com",
+      "phone_number": "654900482",
+      "id": 4
     }
   ],
   "products": [
