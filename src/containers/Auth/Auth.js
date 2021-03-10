@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import { connect } from 'react-redux';
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 
@@ -8,20 +8,20 @@ import * as actions from "../../store/actions/index"
 class FormAuth extends Component{
     state = {
         controls: {
-            email: {
+            name: {
                 elementType: "input",
                 elementConfig: {
-                    type: "email",
-                    placeholder: "Email"
+                  type: "text",
+                  placeholder: "Nombre",
                 },
-                value: '',
+                value: "",
                 validation: {
-                    required: true,
-                    isEmail: true
+                  required: true,
+                  minLength: 3,
                 },
                 valid: false,
-                touched: false
-            },
+                touched: false,
+              },
             password: {
                 elementType: "input",
                 elementConfig: {
@@ -61,7 +61,7 @@ class FormAuth extends Component{
     submitHandler = (event) =>{
         event.preventDefault()
         
-        this.props.onAuth(this.state.controls.email.value,this.state.controls.password.value)
+        this.props.onAuth(this.state.controls.name.value,this.state.controls.password.value)
         /*for(let formElement in this.state.controls){
             formData[formElement] = this.state.controls[formElement]
         }
@@ -136,4 +136,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default FormAuth
+export default connect( null, mapDispatchToProps )( FormAuth );

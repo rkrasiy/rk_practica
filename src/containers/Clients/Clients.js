@@ -2,12 +2,42 @@ import React, { Component } from "react";
 import Client from "../../components/Client/Client";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
+import * as form from "../../store/form"
+import * as db from "../../db_config"
 
 class Clients extends Component {
   state = {
     clientes: null,
     openModal: false,
     controls: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Nombre",
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+        },
+        valid: false,
+        touched: false,
+      },
+      last_name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Apellido",
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+        },
+        valid: false,
+        touched: false,
+      },
       email: {
         elementType: "input",
         elementConfig: {
@@ -22,39 +52,11 @@ class Clients extends Component {
         valid: false,
         touched: false,
       },
-      name: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "Your First Name",
-        },
-        value: "",
-        validation: {
-          required: true,
-          minLength: 3,
-        },
-        valid: false,
-        touched: false,
-      },
-      last_name: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "Your Second Name",
-        },
-        value: "",
-        validation: {
-          required: true,
-          minLength: 3,
-        },
-        valid: false,
-        touched: false,
-      },
       phone_number: {
         elementType: "input",
         elementConfig: {
           type: "number",
-          placeholder: "Enter your phone number",
+          placeholder: "Numero tel.",
         },
         value: "",
         validation: {
@@ -74,7 +76,7 @@ class Clients extends Component {
   };
 
   componentDidMount = () => {
-    fetch("http://localhost:3030/clients")
+    fetch(db.URL + "/clients")
       .then((response) => {
         return response.json();
       })
@@ -119,35 +121,18 @@ class Clients extends Component {
   };
 
   closeModalHandler = () => {
-    this.setState({ openModal: false });
-  }
-  checkValidaty = ( value, rules ) => {
-    let isValid = true;
-
-    if(rules.required) {
-        isValid = value.trim() !== "" && isValid;
-    }
-    if(rules.minLength){
-        isValid = value.length >= rules.minLength && isValid
-    }
-    if(rules.maxLength){
-        isValid = value.length <= rules.maxLength && isValid
-    }
-    if(rules.isEmail){
-        const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-        isValid = pattern.test(value) && isValid
-    }
-    if(rules.isNumber){
-      isValid = !isNaN(rules.isNumber)  && isValid
-    }
-
-    return isValid
+    const updateControls = form.clearInputs(this.state.controls)
+    this.setState({ openModal: false});
   }
 
+  inputHandler = (event, controlName) => {
+    const updateControls = form.inputChangedHandler(this.state.controls, controlName, event.target.value)
+    this.setState({controls: updateControls})
+  }
   addNewClientHandler = (event, id) => {
     event.preventDefault();
     let formData = [];
-    let url = "http://localhost:3030/clients";
+    let url = db.URL + "/clients";
     let method = "POST";
     let formIsValid = true;
     const controls = {...this.state.controls}
@@ -157,20 +142,22 @@ class Clients extends Component {
     }
     
     for(let formElement in controls){
-      if(controls[formElement].validation.required && formIsValid){
-        formIsValid = this.checkValidaty(controls[formElement].value, controls[formElement].validation)
-        if(formIsValid)
+      if(controls[formElement].valid){
           formData[formElement] = controls[formElement] 
-      }else{
-        formIsValid = false
-        controls[formElement].touched = true
+      }else if(!controls[formElement].valid){
+        formIsValid = form.checkValidaty(controls[formElement].value, controls[formElement].validation)
+        if(formIsValid){
+          formData[formElement] = controls[formElement] 
+        }else{
+          controls[formElement].touched = true
+        }
       }
-      
     }
+
     if(!formIsValid){
       return this.setState({formIsValid: formIsValid, controls: controls})
     }
-    
+
     const order = {
         userData: formData
     }
@@ -222,24 +209,14 @@ class Clients extends Component {
       .catch((err) => console.log(err));
   };
   
-  inputChangedHandler = (event, controlName) => {
-    const updateControls = {
-        ...this.state.controls,
-        [controlName]: {
-            ...this.state.controls[controlName],
-            value: event.target.value,
-            valid: this.checkValidaty(event.target.value, this.state.controls[controlName].validation),
-            touched: true
-        }
-    }
-    this.setState({controls: updateControls})
-  }
   render() {
     let persons = "";
     let itemsCount = 0;
     let modal = "";
-    let personId = this.state.personId
-    if (this.state.clientes) {
+    let personId = this.state.personId;
+
+    if (!!this.state.clientes) {
+
       itemsCount = "Total: " + this.state.clientes.length + " clientes";
       persons = this.state.clientes.map((person, index) => (
         <Client
@@ -249,13 +226,13 @@ class Clients extends Component {
           last_name={person.last_name}
           email={person.email}
           phone={person.phone_number}
-          clickedEdit={(event) =>this.openModalHandler(event, person.id)}
+          clickedEdit={(event) =>this.openModalHandler(event,person.id)}
           clickedRemove={this.removeClientHadler.bind(this, person.id)}
         />
       ));
     }
 
-    if (this.state.openModal) {
+    if (!!this.state.openModal) {
       const formElementsArray = [];
       for (let key in this.state.controls) {
         formElementsArray.push({
@@ -273,20 +250,23 @@ class Clients extends Component {
           invalid={!formElement.config.valid}
           shouldValidate={formElement.config.validation}
           touched={formElement.config.touched}
-          changed={(event) => this.inputChangedHandler(event, formElement.id)}
+          changed={(event) => this.inputHandler(event, formElement.id)}
         />
       ));
-      const formError = this.state.errorMessage
+
       modal = (
         <div className="modal">
           <form onSubmit={(event) => this.addNewClientHandler(event, personId)}>
             <h4 className="title">{this.state.formTitle}</h4>
             {form}
-            <Button btnType="Success" classes="green fullwidth">
-              {this.state.formBtn}
+            <Button 
+              btnType="Success" 
+              classes="green fullwidth">{this.state.formBtn}
             </Button>
-            <Button btnType="Dismiss" classes="red fullwidth" clicked={this.closeModalHandler}>
-              Cancelar
+            <Button 
+              btnType="Dismiss" 
+              classes="red fullwidth" 
+              clicked={this.closeModalHandler}>Cancelar
             </Button>
           </form>
         </div>

@@ -22,11 +22,11 @@
       "id": 3
     },
     {
-      "name": "Asda",
-      "last_name": "Kiasda",
-      "email": "romanchyklesia@gmail.com",
-      "phone_number": "654900482",
-      "id": 4
+      "name": "Testing",
+      "last_name": "Second-Name",
+      "email": "test@test.com",
+      "phone_number": "321321421",
+      "id": 6
     }
   ],
   "products": [
@@ -53,6 +53,13 @@
       "price": "1200",
       "offer": false,
       "offer_prop": 0
+    }
+  ],
+  "admin":[
+    {
+      "id":1,
+      "user":"admin",
+      "password":"admin"
     }
   ]
 }

@@ -4,7 +4,7 @@
     border-radius: 3px;
     padding: 5px 10px;
     margin: 2px 5px;
-    font-size: inherit
+    font-size: inherit;
 }
 .Button:hover{
     background-color: rgb(173, 216, 230);

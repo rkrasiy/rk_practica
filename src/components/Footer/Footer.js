@@ -11,7 +11,6 @@ const Footer = (props) => {
     return(
     <footer className="Footer">
         <div className="row">
-            Designed by 
             <a href={props.link} 
                 target="_blank" 
                 title={titleLink}
