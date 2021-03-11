@@ -74,7 +74,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "json-server": "json-server --watch ./src/db.json --port 3030",
-    "dev": "concurrently \"npm start\" \"npm run json-server\"",
+    "graphql-server": "graphql-faker --open --port 3031",
+    "dev": "concurrently \"npm start\" \"npm run json-server\" \"npm run graphql-server\"",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
