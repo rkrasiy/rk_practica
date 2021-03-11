@@ -121,8 +121,8 @@ class Clients extends Component {
   };
 
   closeModalHandler = () => {
-    const updateControls = form.clearInputs(this.state.controls)
-    this.setState({ openModal: false});
+    const updatedControls = form.clearInputs(this.state.controls)
+    this.setState({ openModal: false, controls: updatedControls});
   }
 
   inputHandler = (event, controlName) => {

@@ -4,3 +4,23 @@
   align-items: center;
   padding: 2px 5px;
 }
+
+@media screen and (min-width: 769px) {
+  .Client {
+    flex-direction: row;
+  }
+}
+@media screen and (max-width: 768px) {
+  .Client {
+    flex-direction: column;
+  }
+  .client-view {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .controls {
+    width: 100%;
+    text-align: right;
+  }
+}

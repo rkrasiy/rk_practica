@@ -17,3 +17,15 @@
     align-content: space-between;
     height: 100%;
 }
+@media screen and (min-width: 769px) {
+  aside {width: auto;height: auto;}
+}
+@media screen and (max-width: 768px) {
+  aside {width: 100%;height: min-content;}
+  .Content {
+    flex-wrap: wrap;
+  }
+  .Content section{
+    min-height: 70vh;
+  }
+}

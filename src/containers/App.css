@@ -25,7 +25,6 @@ main {
   width: 100%;
 }
 .list-items{
-  padding: 1em;
   max-height: 70vh;
   overflow: auto;
 }
@@ -65,4 +64,15 @@ form{
   border-radius: .3rem;
   box-shadow: 1px 0 9px rgba(112,112,112, .2);
 }
+@media screen and (min-width: 769px) {
+  .list-items{
+    padding: 1em;
+  }
+}
+@media screen and (max-width: 768px) {
+  .list-items {
+    padding: 1em 0;
+  }
+}
+
 
